@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="Description" content="Ktupad MVC Framework by bawan sismadi">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <title>Ktupad MVC</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="ktupad.css">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <style type="text/css" media="screen">
+    	body {
+    		font-family: "Segoe UI", sans-serif;
+    	}
+    </style>
+</head>
+
+<body>
+    <div id="printarea" class="cetak hide"></div>
+    <div id="belakang" class="main">
+        <div id="depan" class="depan hide"></div>
+        <div id="atas" class="hide"></div>
+        <div id="kanan" class="hide"></div>
+        <div id="bawah" class="hide"></div>
+        <div id="kiri" class="hide"></div>
+        <div id="content" class="hide"></div>
+    </div>
+    <div id="toast" class="pDarkColor toast hide" onclick="k.close('toast')">Info</div>
+
+    <!-- Navigation Bar -->
+    <div id="navbar" class="navbar pDarkColor">
+        <ul style="list-style-type: none; margin:0; left:0; padding: 0;">
+            <li id="dropdown" tabindex="0" class="dropdown-menu" style="float:right">
+            	<div style="cursor: pointer; justify-content: center" onclick="tampilkan()">
+            		<i class="ico-user" style="margin-right: 10px; font-size: 20px;" >
+ 					Admin</i>
+            	</div>
+            	<ul class="dropdown pColor" id="target">
+                    <li>
+                    	<input id="1ss" type="checkbox">
+                    	<label class="btn-h" for="1ss">Profil</label>
+                    </li>
+                    <li>
+                    	<input id="2ss" type="checkbox">
+                    	<label class="btn-h" for="2ss">Logout</label>
+                    </li>
+                </ul>
+                <!-- <ul class="dropdown pColor" id="target">
+                    <li>
+                    	<input id="1ss" type="checkbox">
+                    	<label class="btn-h" for="1ss">Profil</label>
+                        <ul>
+                            <li>
+                            	<input id="2ss" type="checkbox">
+                            	<label class="btn-h" for="2ss">Level 2</label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul> -->
+            </li>
+            <li style="float:right"> <i class="ico-envelope"></i>
+                <span id="badge" class="badge" data-badge="0"></span>
+            </li>
+
+            <!-- Side Bar -->
+            <li style="float:left" id="accordion" tabindex="0" class="accordion-menu">
+                <input id="check" type="checkbox">
+                <label for="check">
+                	<i class="ico-burger"></i>
+                </label>
+                <ul class="accordion pColor" id="sidebar">
+                	<li class="pTextColor" style="padding: 14px 16px; float: left; height: 52px; margin-bottom: 20px; font-size: 22px; font-weight: bold;">Admin</li>
+                	<li id="caris" tabindex="0" class="tool" style="float:right">
+	                	<button class="btn-close ico-close" onclick="k.close('sidebar')" style="height: 50px; background: var(--pColor)"></button>
+	            	</li>
+                	<li>
+	                    <input id="1s" type="checkbox">
+	                    <label class="btn-h" for="1s" style="font-size: 16px">Info <i style="float: right"> ▼ </i></label>
+	                    <ul>
+	                        <li>
+	                            <input id="2s" type="checkbox">
+	                            <label class="btn-h" for="2s">Ktupad-2.0</label>
+	                        </li>
+	                     </ul>
+	                </li>
+	                <li>
+	                    <input id="3s" type="checkbox">
+	                    <label class="btn-h" for="3s" style="font-size: 16px">Info <i style="float: right"> ▼ </i></label>
+	                    <ul>
+	                    	<li>
+	                    		<input id="4s" type="checkbox">
+	                    		<label class="btn-h" for="4s">Ktupad-2</label>
+	                        </li>
+	                    </ul>
+	                </li>
+                </ul>
+            </li>
+            <!-- End Side Bar -->
+
+        </ul>
+    </div>
+    <!-- End Navigation Bar -->
+
+    <!-- Spinner -->
+    <div id="spinner" class="loader hide depan" onclick="k.close('spinner')">
+        <div class="spinner">
+            <div class="cube cube1"></div>
+            <div class="cube cube2"></div>
+            <div class="cube cube3"></div>
+            <div class="cube cube4"></div>
+            <div class="cube cube5"></div>
+            <div class="cube cube6"></div>
+            <div class="cube cube7"></div>
+            <div class="cube cube8"></div>
+        </div>
+    </div>
+    <!-- end Spinner -->
+
+    <div id="float" class="btn-float" onclick="k.open('form')">
+        <i class="ico-plus"></i>
+    </div>
+
+    <!-- Form -->
+    <div id="form" class="depan hide">
+        <div class="modal row">
+            <button class="btn-close ico-close" onclick="k.close('form')"></button>
+            <!-- <i class="btn-close ico-close"></i> -->
+            <h2> Form </h2>
+            <form>
+                <div> <label for="namas">User name</label><br /> <input id="namas" type="text" name="nama" value=""></div>
+                <div> <label for="sandis">Password</label><br /><input id="sandis" type="password" name="sandi" value=""></div>
+                <div class="clear">
+                    <input id="order1" type="hidden" name="order1" value="ORDER BY">
+                    ORDER BY:<select id="fld1" name="sortir">
+                        <option value="id">ID</option>
+                        <option value="nama">Nama</option>
+                    </select>
+                </div>
+            </form>
+            <form method=post enctype="multipart/form-data"><label for="afile">
+                    Pilih File CSV:</label><input id="afile" type="file" name="afile">
+            </form>
+            <button id="import" class="btn-form" name=upload>Import</button>
+            <button id="signin" class="btn-form">Sign In</button>
+        </div>
+    </div>
+    <!-- end Form -->
+
+    <!-- Gallery -->
+    <div id="gallery" class="depan hide">
+        <div class="modal row">
+            <button class="btn-close ico-close" onclick="k.close('gallery')"></button>
+            <div class="row">
+                <div class="l-6 s-12"><a href="#"><img src="ktupad.svg" alt="ktupad"></a></div>
+                <div class="l-6 s-12"><a href="#"><img src="ktupad.svg" alt="ktupad"></a></div>
+                <div class="l-6 s-12"><a href="#"><img src="ktupad.svg" alt="ktupad"></a></div>
+                <div class="l-6 s-12"><a href="#"><img src="ktupad.svg" alt="ktupad"></a></div>
+            </div>
+        </div>
+    </div>
+    <!-- end Gallery -->
+
+    <!-- Tabs -->
+    <div id="tabs" class="depan hide">
+        <div class="modal row">
+            <button class="btn-close ico-close" onclick="k.close('tabs')"></button>
+            <div class="tabs">
+                <input type="radio" name="tabs" id="satu" checked="checked">
+                <label for="satu" class="btn-">Satu</label>
+                <div class="tab">Isi Satu</div>
+                <input type="radio" name="tabs" id="dua" checked="checked">
+                <label for="dua" class="btn-">Dua</label>
+                <div class="tab">Isi Dua</div>
+            </div>
+        </div>
+    </div>
+    <!-- end Tabs -->
+
+    <!-- Chart -->
+    <div id="chart" class="depan hide">
+        <div class="modal row ">
+            <button class="btn-close ico-close" onclick="k.close('chart')"></button>
+            <div class="row">
+                <div class="l-6 s-12 ">
+                    <div class="chart vertical row">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="red" style="height:100%"> 100 % </div>
+                                </td>
+                                <td>
+                                    <div class="green" style="height:80%"> 80 % </div>
+                                </td>
+                                <td>
+                                    <div class="blue" style="height:10%"> 00 % </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="l-6 s-12 ">
+                    <div class="chart horizontal row">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="red" style="width:100%"> 100 % </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="green" style="width:80%"> 80 % </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="blue" style="width:10%"> 00 % </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Chart -->
+
+    <!-- Content -->
+    <section>
+
+    <!-- Search -->
+	    <div id="search" class="search row pColor">
+	        <ul>
+	            <li class="pTextColor" style="padding: 14px 16px;">Modul</li>
+	            <li id="caris" tabindex="0" class="tool" style="float:right">
+	                <i class="ico-tridot dropbtn"></i>
+	                <div class="subtool">
+	                    <a href="#">Filter</a>
+	                    <a href="#">Export</a>
+	                    <a href="#">Import</a>
+	                    <a href="#">Print</a>
+	                </div>
+	            </li>
+	            <li id="SearchTxt" style="float:right"><label for="InpSearch"><input id="InpSearch" type="text" placeholder="Search..." /></label></li>
+	        </ul>
+	    </div>
+	    <!-- end Search -->
+
+	    <!-- Table -->
+	    <div id="table" class="table">
+	        <table>
+	            <tr>
+	                <th class="pColor">
+	                	<label>
+	                		<input type="checkbox">ID
+	                	</label>
+	                </th>
+	                <th class="pColor">Nama</th>
+	                <th class="pColor">Aksi</th>
+	            </tr>
+	            <tr>
+	                <td><label> <input type="checkbox">1</label></td>
+	                <td>Chart</td>
+	                <td><button onclick="k.open('chart')" class="btn-form">View</button></td>
+	            </tr>
+	            <tr>
+	                <td><label> <input type="checkbox">2</label></td>
+	                <td>Form</td>
+	                <td><button onclick="k.open('form')" class="btn-form">View</button>
+	            </tr>
+	            <tr>
+	                <td><label> <input type="checkbox">3</label></td>
+	                <td>Gallery</td>
+	                <td><button onclick="k.open('gallery')" class="btn-form">View</button>
+	            </tr>
+	            <tr>
+	                <td><label> <input type="checkbox">4</label></td>
+	                <td>Spinner</td>
+	                <td><button onclick="k.open('spinner')" class="btn-form">View</button>
+	            </tr>
+	            <tr>
+	                <td><label> <input type="checkbox">4</label></td>
+	                <td>Toast</td>
+	                <td><button onclick="k.open('toast')" class="btn-form">View</button>
+	            </tr>
+	            <tr>
+	                <td><label> <input type="checkbox">4</label></td>
+	                <td>Tabs</td>
+	                <td><button onclick="k.open('tabs')" class="btn-form">View</button>
+	            </tr>
+	        </table>
+	        </br>
+	    </div>
+	    <!-- end Table -->
+
+	    <!-- Pagination -->
+	    <div id="pagination" class="pagination">
+	        <button id="p" class="btn-form">Prev</button>
+	        <button id="n" class="btn-form">Next</button>
+	        <span id="s">Page:1/7</span>
+	    </div>
+    <!-- end Pagination -->
+    </section>
+    <!-- end Content -->
+
+    <!-- end main -->
+    <script>
+    k = {
+        close: function(id) {
+            var z = document.getElementById(id);
+            z.className = z.className.replace('show', 'hide');
+        },
+        open: function(id) {
+            var z = document.getElementById(id);
+            z.className = z.className.replace('hide', 'show');
+        }
+    }
+
+    function tampilkan() {
+        var x = document.getElementById("target");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    </script>
+</body>
+
+</html>
